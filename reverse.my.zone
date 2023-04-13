@@ -1,0 +1,17 @@
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     %ZONE_NAME%. admin.%ZONE_NAME%. (
+                              3         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+; name servers
+      IN      NS      ns.%ZONE_NAME%.
+
+; PTR Records
+144.2   IN      PTR     ns.%ZONE_NAME%.         ; 172.31.2.144
+%HOST_1_REVERSE%  IN      PTR     %HOST_1_NAME%.%ZONE_NAME%.       ; 172.31.15.138
+%HOST_2_REVERSE%  IN      PTR     %HOST_2_NAME%.%ZONE_NAME%.

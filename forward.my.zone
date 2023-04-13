@@ -1,0 +1,20 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     ns.%ZONE_NAME%. admin.%ZONE_NAME%. (
+                  3     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
+;
+; name servers - NS records
+        IN      NS      ns.%ZONE_NAME%.
+
+; name servers - A records
+ns.%ZONE_NAME%.        IN      A      %NS_IP%
+
+; 172.31.0.0/16 - A records
+%HOST_1_NAME%.%ZONE_NAME%.      IN      A      %HOST_1_IP%
+%HOST_2_NAME%.%ZONE_NAME%.      IN      A      %HOST_2_IP%
