@@ -1,7 +1,7 @@
 ;
 ; BIND data file for local loopback interface
 ;
-$TTL    604800
+$TTL    300
 @       IN      SOA     ns.%ZONE_NAME%. admin.%ZONE_NAME%. (
                   3     ; Serial
              604800     ; Refresh
