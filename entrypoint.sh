@@ -5,19 +5,19 @@ set -euo pipefail
 exec &>> /var/log/my_script.log
 
 # Определение переменных для файлов конфигурации
-FORWARD_CONFIG="/etc/bind/forward.my.zone"
-REVERSE_CONFIG="/etc/bind/reverse.my.zone"
+FORWARD_ZONE="/etc/bind/forward.my.zone"
+REVERSE_ZONE="/etc/bind/reverse.my.zone"
 LOCAL_CONFIG="/etc/bind/named.conf.local"
 
 # Замена переменных в файле forward.my.zone
-if ! sed -i "s|%ZONE_NAME%|$ZONE_NAME|g; s|%NS_IP%|$NS_IP|g; s|%HOST_1_IP%|$HOST_1_IP|g; s|%HOST_1_NAME%|$HOST_1_NAME|g; s|%HOST_2_IP%|$HOST_2_IP|g; s|%HOST_2_NAME%|$HOST_2_NAME|g;" "$FORWARD_CONFIG"; then
-  echo "Failed to replace variables in $FORWARD_CONFIG"
+if ! sed -i "s|%ZONE_NAME%|$ZONE_NAME|g; s|%NS_IP%|$NS_IP|g; s|%HOST_1_IP%|$HOST_1_IP|g; s|%HOST_1_NAME%|$HOST_1_NAME|g; s|%HOST_2_IP%|$HOST_2_IP|g; s|%HOST_2_NAME%|$HOST_2_NAME|g;" "$FORWARD_ZONE"; then
+  echo "Failed to replace variables in $FORWARD_ZONE"
   exit 1
 fi
 
 # Замена переменных в файле reverse.my.zone
-if ! sed -i "s|%ZONE_NAME%|$ZONE_NAME|g; s|%HOST_1_NAME%|$HOST_1_NAME|g; s|%HOST_1_REVERSE%|$HOST_1_REVERSE|g; s|%HOST_2_NAME%|$HOST_2_NAME|g; s|%HOST_2_REVERSE%|$HOST_2_REVERSE|g;" "$REVERSE_CONFIG"; then
-  echo "Failed to replace variables in $REVERSE_CONFIG"
+if ! sed -i "s|%ZONE_NAME%|$ZONE_NAME|g; s|%HOST_1_NAME%|$HOST_1_NAME|g; s|%HOST_1_REVERSE%|$HOST_1_REVERSE|g; s|%HOST_2_NAME%|$HOST_2_NAME|g; s|%HOST_2_REVERSE%|$HOST_2_REVERSE|g;" "$REVERSE_ZONE"; then
+  echo "Failed to replace variables in $REVERSE_ZONE"
   exit 1
 fi
 
@@ -34,7 +34,7 @@ if ! chown root:root /etc/bind/rndc.key; then
 fi
 
 # Проверка корректности конфигурации
-if ! named-checkconf "$LOCAL_CONFIG" && named-checkconf "$FORWARD_CONFIG" && named-checkconf "$REVERSE_CONFIG"; then
+if ! named-checkconf "$LOCAL_CONFIG" && named-checkconf /etc/bind/named.conf.options && named-checkzone forward.my.zone "$FORWARD_ZONE" && named-checkzone reverse.my.zone "$REVERSE_ZONE"; then
   echo "Failed to check BIND9 configuration"
   exit 1
 fi
