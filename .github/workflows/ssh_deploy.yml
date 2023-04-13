@@ -9,7 +9,7 @@ on:
 
 env:
   SOURCE     : "./DOCKER" # откуда  
-  TARGET     : "~/docker_bind9" # куда на удаленном сервере
+  TARGET     : "~/" # куда на удаленном сервере
 
 jobs:
   test_build_bind9:
