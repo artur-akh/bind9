@@ -28,16 +28,16 @@ jobs:
       run: |
         ls -la
         sudo cp ./named.conf.local ./named.conf.options ./forward.my.zone ./reverse.my.zone /etc/bind/
-        sudo bash ./entrypoint.sh
+        # sudo bash ./entrypoint.sh
         # sudo named-checkconf /etc/bind/named.conf.local; echo $?
         # sudo named-checkconf /etc/bind/named.conf.options; echo $?
         # sudo named-checkzone forward.my.zone /etc/bind/forward.my.zone; echo $?
         # sudo named-checkzone reverse.my.zone /etc/bind/reverse.my.zone; echo $?
-        cat /var/log/my_script.log
+    #     cat /var/log/my_script.log
 
-    - name: Start Bind9 service
-      run: |
-        sudo systemctl start bind9
+    # - name: Start Bind9 service
+    #   run: |
+    #     sudo systemctl start bind9
 
   # deploy_to_ssh:
   #   runs-on: ubuntu-latest # Определяет ОС на которой будет выполняться деплоймент
