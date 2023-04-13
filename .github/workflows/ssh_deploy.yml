@@ -27,7 +27,7 @@ jobs:
     - name: Check Bind9 config
       run: |
         ls -la
-        sudo cp -f ./named* ./*.zone /etc/bind/
+        sudo cp -f ./named.conf.local ./named.conf.options ./forward.my.zone ./reverse.my.zone /etc/bind/
         sudo bash ./entrypoint.sh
         # sudo named-checkconf /etc/bind/named.conf.local; echo $?
         # sudo named-checkconf /etc/bind/named.conf.options; echo $?
