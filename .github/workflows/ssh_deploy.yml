@@ -8,7 +8,7 @@ on:
 #       - main # Срабатывает при коммите в ветку main
 
 env:
-  SOURCE     : "./" # откуда  
+  SOURCE     : "./DOCKER" # откуда  
   TARGET     : "~/docker_bind9" # куда на удаленном сервере
 
 jobs:
@@ -38,6 +38,7 @@ jobs:
 
   deploy_to_ssh:
     runs-on: ubuntu-latest # Определяет ОС на которой будет выполняться деплоймент
+    needs: [test_build_bind9]
 
     steps:
       - name: -------Start-CD-----------
@@ -56,7 +57,6 @@ jobs:
           REMOTE_USER    : ${{ secrets.REMOTE_USER }} # Имя пользователя для подключения к серверу
           TARGET         : ${{ env.TARGET }} # куда на удаленном сервере
           SCRIPT_BEFORE: |
-            cd ${{ env.TARGET }} # Переход в локальную папку с кодом
             ls -la # Вывод списка файлов и папок в логи перед деплоем
           SCRIPT_AFTER: |
             cd ${{ env.TARGET }} # Переход в локальную папку с кодом

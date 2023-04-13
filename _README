@@ -1,0 +1,11 @@
+
+docker run --name bind9-container -p 53:53/udp -p 53:53/tcp -it ubuntu/bind9
+
+docker run --name dns --rm \
+-v /home/ec2-user/bind/named.conf.options:/etc/bind/named.conf.options \
+-v /home/ec2-user/bind/named.conf.local:/etc/bind/named.conf.local \
+-v /home/ec2-user/bind/forward.my.artur.com:/etc/bind/forward.my.artur.com \
+-v /home/ec2-user/bind/reverse.my.artur.com:/etc/bind/reverse.my.artur.com \
+-p 53:53/udp \
+-p 53:53/tcp \
+-it ubuntu/bind9
