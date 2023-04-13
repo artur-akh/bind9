@@ -27,10 +27,12 @@ jobs:
     - name: Check Bind9 config
       run: |
         ls -la
-        sudo named-checkconf ./named.conf.local; echo $?
-        sudo named-checkconf ./named.conf.options; echo $?
-        sudo named-checkzone forward.my.zone ./forward.my.zone; echo $?
-        sudo named-checkzone reverse.my.zone ./reverse.my.zone; echo $?
+        bash /entrypoint.sh
+        sudo named-checkconf /etc/bind/named.conf.local; echo $?
+        sudo named-checkconf /etc/bind/named.conf.options; echo $?
+        sudo named-checkzone /etc/bind/forward.my.zone ./forward.my.zone; echo $?
+        sudo named-checkzone /etc/bind/reverse.my.zone ./reverse.my.zone; echo $?
+        cat /var/log/my_script.log
 
     # - name: Start Bind9 service
     #   run: |
