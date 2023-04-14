@@ -57,8 +57,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./DOCKER
+          context: ./DOCKER
+          file: ./Dockerfile
           push: true
           tags: ${{ env.DOCKER_TAG }}
   
