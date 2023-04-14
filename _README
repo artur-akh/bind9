@@ -1,11 +1,20 @@
-
-docker run --name bind9-container -p 53:53/udp -p 53:53/tcp -it ubuntu/bind9
-
-docker run --name dns --rm \
--v /home/ec2-user/bind/named.conf.options:/etc/bind/named.conf.options \
--v /home/ec2-user/bind/named.conf.local:/etc/bind/named.conf.local \
--v /home/ec2-user/bind/forward.my.artur.com:/etc/bind/forward.my.artur.com \
--v /home/ec2-user/bind/reverse.my.artur.com:/etc/bind/reverse.my.artur.com \
+# запуск контейнера BIND с двумя хостами
+docker run --name dns --rm -d \
+-e ZONE_NAME=local \
+-e REVERSE_ZONE_NAME=31.172 \
+-e NS_IP=172.31.16.83 \
+-e HOST_1_NAME=host1 \
+-e HOST_1_IP=172.31.26.127 \
+-e HOST_1_REVERSE=127.26 \
+-e HOST_2_NAME=null \
+-e HOST_2_IP=172.31.15.12 \
+-e HOST_2_REVERSE=12.15 \
 -p 53:53/udp \
 -p 53:53/tcp \
--it ubuntu/bind9
+arturakh/bind9:latest
+
+# Volume
+-v ./named.conf.options:/etc/bind/named.conf.options \
+-v ./named.conf.local:/etc/bind/named.conf.local \
+-v ./forward.my.zone:/etc/bind/forward.my.zone \
+-v ./reverse.my.zone:/etc/bind/reverse.my.zone \
