@@ -1,11 +1,11 @@
 name: docker_build_and_push
 
-on:
-  workflow_dispatch: # Срабатывает при запуске вручную из интерфейса GitHub Actions
 # on:
-#   push:
-#     branches:
-#       - main # Срабатывает при коммите в ветку main
+#   workflow_dispatch: # Срабатывает при запуске вручную из интерфейса GitHub Actions
+on:
+  push:
+    branches:
+      - main # Срабатывает при коммите в ветку main
 
 env:
   SOURCE     : "./"
