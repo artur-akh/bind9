@@ -65,3 +65,11 @@ jobs:
       - name: -------FINISH-Docker-Build-&-Push----------
         run: |
           echo "🍏 This job's status is ${{ job.status }}."
+
+      - name: Update repo description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: arturakh/bind9
+          readme_path: ./README.md
