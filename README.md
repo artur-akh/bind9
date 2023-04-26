@@ -38,7 +38,8 @@ services:
 ```
 
 **Volume:**<br>
-```-v ./named.conf.options:/etc/bind/named.conf.options \\<br>
--v ./named.conf.local:/etc/bind/named.conf.local \\<br>
--v ./forward.my.zone:/etc/bind/forward.my.zone \\<br>
--v ./reverse.my.zone:/etc/bind/reverse.my.zone \\<br>```
+```-v ./named.conf.options:/etc/bind/named.conf.options \
+-v ./named.conf.local:/etc/bind/named.conf.local \
+-v ./forward.my.zone:/etc/bind/forward.my.zone \
+-v ./reverse.my.zone:/etc/bind/reverse.my.zone \
+```
